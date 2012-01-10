@@ -60,3 +60,12 @@ if [ -e 'config/database.yml' ]; then
 	# Run the database migrations
 	$rake db:migrate
 fi
+
+# Install the CI reporter gem to get JUnit output
+gem install ci_reporter
+stub=`gem contents ci_reporter | grep stub.rake`
+
+
+# Get the rake task from the command line and run it
+task=$3
+$rake -f $stub ci:setup:rspec $task
