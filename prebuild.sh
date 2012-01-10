@@ -4,12 +4,9 @@
 # Released as Open Source Software under the BSD 3-Clause license. See LICENSE.txt for details.
 
 if [ -z "$2" ]; then
-  echo "Usage:  $0 <build_dir> <build_name>"
+  echo "Usage:  $0 <build_name> <task>"
   exit
 fi
-
-# Change to build directory
-cd $1
 
 # Load RVM as a function so we can switch from within the script
 # https://rvm.beginrescueend.com/workflow/scripting/
@@ -26,7 +23,7 @@ fi
 # Get gemset name NOT from .rvmrc but from build name
 # This is to avoid conflicts with different builds of same
 # codebase
-gemset=$2
+gemset=$1
 # Set up correct ruby
 if ! (rvm list | grep $ruby); then
       rvm install $ruby
@@ -67,5 +64,5 @@ stub=`gem contents ci_reporter | grep stub.rake`
 
 
 # Get the rake task from the command line and run it
-task=$3
+task=$2
 $rake -f $stub ci:setup:rspec $task
