@@ -8,18 +8,18 @@ if [ -z "$2" ]; then
   exit
 fi
 
+# Default options for gem commands
 gem_opts='--no-rdoc --no-ri'
 
 # Load RVM as a function so we can switch from within the script
 # https://rvm.beginrescueend.com/workflow/scripting/
 . "$HOME/.rvm/scripts/rvm"
 
-# If there is an .rvmrc
+# If there is an .rvmrc, grab the ruby version from it - default to 1.8.7
+ruby='1.8.7'
 if [ -e '.rvmrc' ]; then
 	# Get ruby version from .rvmrc
 	ruby=`cat .rvmrc | sed "s:.* \(.*\)@.*:\1:"`
-else
-	ruby='1.8.7'
 fi
 
 # Get gemset name NOT from .rvmrc but from build name
