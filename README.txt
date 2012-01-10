@@ -37,12 +37,16 @@ and make sure everything you need is installed before proceeding.
  
 2. For each build, enter the following as the build command:
 
- /path/to/build.sh <build_name> <task>
+ /path/to/build.sh <build_key> <task>
   
 For instance, if you are configuring the RUBY-DEV build to run the 'rake spec' task,
 you would enter:
 
  /path/to/build.sh RUBY-DEV spec
+
+You can of course use the build key automatically:
+
+ /path/to/build.sh ${bamboo.buildKey} spec
 
 3. Check 'this build will produce test results' and enter the following in the box below:
 
