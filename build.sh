@@ -8,6 +8,8 @@ if [ -z "$2" ]; then
   exit
 fi
 
+gem_opts='--no-rdoc --no-ri'
+
 # Load RVM as a function so we can switch from within the script
 # https://rvm.beginrescueend.com/workflow/scripting/
 . "$HOME/.rvm/scripts/rvm"
@@ -36,7 +38,7 @@ rvm use $ruby@$gemset --create
 rake='rake'
 if [ -e 'Gemfile' ]; then
 	# Make sure bundler is installed
-	gem install bundler --no-rdoc --no-ri
+	gem install bundler $gem_opts
 	# Then run bundle to install dependencies
 	bundle
 	# Run rake through bundler
@@ -46,7 +48,7 @@ else
 	if [ -e 'config/environment.rb' ]; then
 		# If so, install correct rails version
 		rails=`grep RAILS_GEM_VERSION config/environment.rb | sed "s:.*'\(.*\)'.*:\1:"`
-		gem install rails -v=$rails --no-ri --no-rdoc
+		gem install rails -v=$rails $gem_opts
 		# Then install gems
 		$rake gems:install
 	fi
@@ -59,7 +61,7 @@ if [ -e 'config/database.yml' ]; then
 fi
 
 # Install the CI reporter gem to get JUnit output
-gem install ci_reporter
+gem install ci_reporter $gem_opts
 stub=`gem contents ci_reporter | grep stub.rake`
 
 
