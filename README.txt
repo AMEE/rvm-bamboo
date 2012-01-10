@@ -57,3 +57,5 @@ you would enter:
  * The script creates a gemset for each configuration, named after the build name. The 
    gemset in .rvmrc is ignored.
  * The CI::Reporter gem is automatically included in the build command for JUnit output.
+ * Anything that uses bundler will work out of the box, as should Rails 2 apps that use 
+   'rake gems:install'
